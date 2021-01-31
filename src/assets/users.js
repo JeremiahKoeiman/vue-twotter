@@ -1,6 +1,24 @@
 export const users = [
   {
     "id": 1,
+    "username": 'Jerry',
+    "firstName": 'Jerry',
+    "lastName": 'Boy',
+    "email": 'jerryboy@gmail.com',
+    "isAdmin": true,
+    "twoots": [
+      {
+        "id": 1,
+        "content": 'Twooter is amazing!'
+      },
+      {
+        "id": 2,
+        "content": 'I am inevitable!'
+      }
+    ]
+  },
+  {
+    "id": 2,
     "username": "_MitchellRomney",
     "firstName": "Mitchell",
     "lastName": "Romney",
@@ -12,7 +30,7 @@ export const users = [
     ]
   },
   {
-    "id": 2,
+    "id": 3,
     "username": "JColeNC",
     "firstName": "J.",
     "lastName": "Cole",
@@ -21,7 +39,7 @@ export const users = [
     "twoots": []
   },
   {
-    "id": 3,
+    "id": 4,
     "username": "kurtisconner",
     "firstName": "kurtis",
     "lastName": "conner",
@@ -30,7 +48,7 @@ export const users = [
     "twoots": []
   },
   {
-    "id": 4,
+    "id": 5,
     "username": "boburnham",
     "firstName": "Bo",
     "lastName": "Burnham",
