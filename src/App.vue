@@ -5,7 +5,7 @@
         Twooter
       </div>
       <div class="navigation__user">
-        Jerry
+        {{ state.user.username }}
       </div>
     </nav>
     <UserProfile/>
@@ -13,11 +13,23 @@
 </template>
 
 <script>
+import { reactive } from "vue"
 import UserProfile from "./components/UserProfile";
 
 export default {
   name: 'App',
-  components: { UserProfile }
+  components: { UserProfile },
+  setup() {
+    const state = reactive({
+      user: {
+        username: 'Jerry'
+      }
+    })
+
+    return {
+      state
+    }
+  }
 }
 </script>
 
