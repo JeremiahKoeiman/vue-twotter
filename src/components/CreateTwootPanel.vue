@@ -1,13 +1,13 @@
 <template>
-  <form class="create-twoot-panel" @submit.prevent="createNewTwoot" :class="{ '--exceeded': newTwootCharCount > 180 }">
-    <label for="newTwoot"><strong>New Twoot</strong> ({{ newTwootCharCount }})/180</label>
-    <textarea id="newTwoot" rows="4" v-model="newTwootContent"/>
+  <form class="create-twoot-panel" @submit.prevent="createNewTwoot" :class="{ '--exceeded': state.newTwootCharCount > 180 }">
+    <label for="newTwoot"><strong>New Twoot</strong> ({{ state.newTwootCharCount }})/180</label>
+    <textarea id="newTwoot" rows="4" v-model="state.newTwootContent"/>
 
     <div class="create-twoot-panel__submit">
       <div class="create-twoot-type">
         <label for="newTwootType"><strong>Type: </strong></label>
-        <select id="newTwootType" v-model="selectedTwootType">
-          <option :value="option.value" v-for="(option, index) in twootTypes" :key="index">
+        <select id="newTwootType" v-model="state.selectedTwootType">
+          <option :value="option.value" v-for="(option, index) in state.twootTypes" :key="index">
             {{ option.name }}
           </option>
         </select>
@@ -21,15 +21,12 @@
 </template>
 
 <script>
+import { reactive, computed } from 'vue'
+
 export default {
   name: "CreateTwootPanel",
-  props: {
-    twoot: {
-      type: Object
-    }
-  },
-  data() {
-    return {
+  setup(props, ctx) {
+    const state = reactive({
       newTwootContent: '',
       selectedTwootType: 'instant',
       twootTypes: [
@@ -42,23 +39,21 @@ export default {
           name: 'Instant Twoot'
         }
       ]
-    }
-  },
-  computed: {
-    newTwootCharCount() {
-      return this.newTwootContent.length
-    }
-  },
-  methods: {
-    createNewTwoot() {
-      if (this.newTwootContent && this.selectedTwootType !== 'draft') {
-        this.$emit('add-twoot', this.newTwootContent)
-        /*this.user.twoots.unshift({
-          id: this.user.twoots.length + 1,
-          content: this.newTwootContent
-        })*/
-        this.newTwootContent = '';
+    })
+
+    const newTwootCharCount = computed(() => state.newTwootContent.length)
+
+    function createNewTwoot() {
+      if (state.newTwootContent && state.selectedTwootType !== 'draft') {
+        ctx.emit('add-twoot', state.newTwootContent)
+        state.newTwootContent = '';
       }
+    }
+
+    return {
+      state,
+      newTwootCharCount,
+      createNewTwoot
     }
   }
 }
